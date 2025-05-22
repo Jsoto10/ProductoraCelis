@@ -1,0 +1,268 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData Productora Celis</title>
+    <title>Nuestros Productos</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/ProductoraCelis.styles.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="/css/Productos.css">
+    <link rel="stylesheet" href="/css/Header.css">
+    <link rel="stylesheet" href="/css/Footer.css">
+</head>
+<body>
+    <header class="header">
+        <img src="~/src/icon/franja.jpg" alt="Franja decorativa" class="franja" />
+        <a class="logo">
+            <img src="~/src/icon/logo.png" />
+            <h1>
+                @if (User.Identity!.IsAuthenticated)
+                {
+                    <span>@User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Name)?.Value</span>
+                }
+            </h1>
+        </a>
+        <div>Productora Celis</div>
+        <nav>
+            <ul class="center-links">
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Salir">Salir</a></li>
+            </ul>
+            <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        </nav>
+    </header>
+
+
+    <nav class="nav">
+        <ul>
+            <li><button onclick="mostrarSeccion('leche')">Leche</button></li>
+            <li><button onclick="mostrarSeccion('queso')">Queso</button></li>
+            <li><button onclick="mostrarSeccion('yogurt')">Yogurt</button></li>
+            <li><button onclick="mostrarSeccion('mantequilla')">Mantequilla</button></li>
+        </ul>
+    </nav>
+    <div>
+        <!-- Sección de Queso -->
+        <section id="queso" class="producto" style="display: none;">
+            <h2>Quesos</h2>
+            <div class="combos">
+                @foreach (var producto in Model)
+                {
+                    @if (producto.Categoria == "queso")
+                    {
+                        <div class="combo">
+                            @if (!string.IsNullOrEmpty(producto.UrlImagen))
+                            {
+                                <img src="@producto.UrlImagen" alt="Product Image" />
+                            }
+                            else
+                            {
+                                <span>No Image</span>
+                            }
+
+                            <p>@producto.Nombre</p>
+                            <span>@producto.Precio.ToString("C")</span>
+                            <div class="quantity">
+                                <button class="btn-disminuir">-</button>
+                                <span class="cantidad">0</span>
+                                <button class="btn-aumentar">+</button>
+                            </div>
+                        </div>
+
+                    }
+                }
+            </div>
+        </section>
+        <!-- Sección de Leche -->
+        <section id="leche" class="producto" style="display: none;">
+            <h2>Leche</h2>
+            <div class="combos">
+                @foreach (var producto in Model)
+                {
+
+                    @if (producto.Categoria == "leche")
+                    {
+                        <div class="combo">
+                            @if (!string.IsNullOrEmpty(producto.UrlImagen))
+                            {
+                                <img src="@producto.UrlImagen" alt="Product Image" />
+                            }
+                            else
+                            {
+                                <span>No Image</span>
+                            }
+
+                            <p>@producto.Nombre</p>
+                            <span>@producto.Precio.ToString("C")</span>
+                            <div class="quantity">
+                                <button class="btn-disminuir">-</button>
+                                <span class="cantidad">0</span>
+                                <button class="btn-aumentar">+</button>
+                            </div>
+                        </div>
+
+                    }
+                }
+            </div>
+        </section>
+        <!-- Sección de Yogurt -->
+        <section id="yogurt" class="producto" style="display: none;">
+            <h2>Yogurt</h2>
+            <div class="combos">
+                @foreach (var producto in Model)
+                {
+
+                    @if (producto.Categoria == "yogurt")
+                    {
+                        <div class="combo">
+                            @if (!string.IsNullOrEmpty(producto.UrlImagen))
+                            {
+                                <img src="@producto.UrlImagen" alt="Product Image" />
+                            }
+                            else
+                            {
+                                <span>No Image</span>
+                            }
+
+                            <p>@producto.Nombre</p>
+                            <span>@producto.Precio.ToString("C")</span>
+                            <div class="quantity">
+                                <button class="btn-disminuir">-</button>
+                                <span class="cantidad">0</span>
+                                <button class="btn-aumentar">+</button>
+                            </div>
+                        </div>
+
+                    }
+                }
+            </div>
+        </section>
+        <!-- Sección de Mantequilla -->
+        <section id="mantequilla" class="producto" style="display: none;">
+            <h2>Mantequilla</h2>
+            <div class="combos">
+                @foreach (var producto in Model)
+                {
+
+                    @if (producto.Categoria == "mantequilla")
+                    {
+                        <div class="combo">
+                            @if (!string.IsNullOrEmpty(producto.UrlImagen))
+                            {
+                                <img src="@producto.UrlImagen" alt="Product Image" />
+                            }
+                            else
+                            {
+                                <span>No Image</span>
+                            }
+
+                            <p>@producto.Nombre</p>
+                            <span>@producto.Precio.ToString("C")</span>
+                            <div class="quantity">
+                                <button class="btn-disminuir">-</button>
+                                <span class="cantidad">0</span>
+                                <button class="btn-aumentar">+</button>
+                            </div>
+                        </div>
+
+                    }
+                }
+            </div>
+        </section>
+
+        <button id="agregarAlCarritoBtn" class="btn btn-success" style="margin:20px;">Agregar selección al carrito</button>
+
+        <script>
+            const productosSeleccionados = [];
+
+            function actualizarProducto(nombre, precio, cantidad) {
+                const productoExistente = productosSeleccionados.find(producto => producto.nombre === nombre);
+
+                if (productoExistente) {
+                    productoExistente.cantidad = cantidad;
+                } else {
+                    productosSeleccionados.push({ nombre, precio, cantidad });
+                }
+
+                localStorage.setItem("productosSeleccionados", JSON.stringify(productosSeleccionados));
+            }
+
+            function manejarCantidad(event, nombre, precio) {
+                const cantidadElemento = event.target.parentElement.querySelector(".cantidad");
+                let cantidad = parseInt(cantidadElemento.innerText);
+
+                if (event.target.classList.contains("btn-aumentar")) {
+                    cantidad++;
+                } else if (event.target.classList.contains("btn-disminuir") && cantidad > 0) {
+                    cantidad--;
+                }
+
+                cantidadElemento.innerText = cantidad;
+
+                actualizarProducto(nombre, precio, cantidad);
+            }
+
+            document.querySelectorAll(".combo").forEach((combo) => {
+                const nombre = combo.querySelector("p").innerText;
+                const precio = combo.querySelector("span").innerText;
+
+                combo.querySelector(".btn-aumentar").addEventListener("click", (event) => manejarCantidad(event, nombre, precio));
+                combo.querySelector(".btn-disminuir").addEventListener("click", (event) => manejarCantidad(event, nombre, precio));
+            });
+
+            document.getElementById("agregarAlCarritoBtn").addEventListener("click", () => {
+                const productos = JSON.parse(localStorage.getItem("productosSeleccionados")) || [];
+                const productosParaEnviar = productos.filter(p => p.cantidad > 0);
+
+                if (productosParaEnviar.length === 0) {
+                    alert("Selecciona al menos un producto con cantidad mayor a 0");
+                    return;
+                }
+
+                fetch('/Home/AgregarAlCarritoMultiple', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Si usas antiforgery token agrega la línea siguiente, y en la vista agrega @Html.AntiForgeryToken()
+                        // 'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    },
+                    body: JSON.stringify(productosParaEnviar)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("Productos agregados al carrito");
+                            localStorage.removeItem("productosSeleccionados");
+                            window.location.href = '/Home/Carrito';  // Redirige a la vista carrito
+                        } else {
+                            alert("Error al agregar productos al carrito");
+                        }
+                    })
+                    .catch(() => alert("Error en la comunicación con el servidor"));
+            });
+        </script>
+
+    </div>
+
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/Header.js"></script>
+    
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+</body>
+</html>

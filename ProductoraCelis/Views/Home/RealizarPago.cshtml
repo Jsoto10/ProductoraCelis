@@ -1,0 +1,124 @@
+﻿@model ProductoraCelis.ViewsModes.MetodoPagoVM;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realizar Pago</title>
+    <link rel="stylesheet" href="~/css/RealizarPago.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Header.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="header">
+        <img src="~/src/icon/franja.jpg" alt="Franja decorativa" class="franja" />
+        <a class="logo">
+            <img src="~/src/icon/logo.png" />
+            <h1>
+                @if (User.Identity!.IsAuthenticated)
+                {
+                    <span>@User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Name)?.Value</span>
+                }
+            </h1>   
+        </a>
+            <div>Productora Celis</div>
+        <nav>
+            <ul class="center-links">
+                <li><a asp-area="" asp-controller="Home" asp-action="Salir">Salir</a></li>
+            </ul>
+            <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        </nav>
+    </header>
+
+    <div id="totalPago">
+        <h2>Total a pagar: <span id="total">S/ 0.00</span></h2>
+    </div>
+
+    <div class="form-group">
+        <label for="metodoPago">Método de Pago:</label>
+        <select id="metodoPago" name="MetodoPago" class="form-control" asp-for="MetodoPago" required>
+            <option value="">Seleccione un método de pago</option>
+            <option value="Tarjeta">Tarjeta de Crédito/Débito</option>
+            <option value="Efectivo">Efectivo</option>
+        </select>
+    </div>
+
+    <div id="tarjetaForm" style="display: none;">
+        <h3>Formulario de Pago con Tarjeta</h3>
+        <div class="form-group">
+            <label for="numeroTarjeta">Número de Tarjeta:</label>
+            <input type="text" id="numeroTarjeta" name="NumeroTarjeta" class="form-control" asp-for="NumeroTarjeta" placeholder="Ingrese el número de tarjeta" />
+        </div>
+        <div class="form-group">
+            <label for="fechaVencimiento">Fecha de Vencimiento:</label>
+            <input type="month" id="fechaVencimiento" name="FechaVencimiento" class="form-control" asp-for="FechaVencimiento" />
+        </div>
+        <div class="form-group">
+            <label for="codigoSeguridad">Código de Seguridad:</label>
+            <input type="text" id="codigoSeguridad" name="CodigoSeguridad" class="form-control" asp-for="CodigoSeguridad" placeholder="Ingrese el código de seguridad" />
+        </div>
+    </div>
+
+    <div id="mensajeEfectivo" style="display: none;">
+        <h3>Pago en Efectivo</h3>
+        <p>El administrador se pondrá en contacto con usted para coordinar la recepción del pago en efectivo.</p>
+    </div>
+
+    <button id="realizarPagoBtn" class="btn btn-primary">Realizar Pago</button>
+
+    <script src="~/js/productos.js"></script>
+    <script>
+        function calcularTotal() {
+            let total = 0;
+            const productosSeleccionados = JSON.parse(localStorage.getItem("productosSeleccionados")) || [];
+
+            productosSeleccionados.forEach(producto => {
+                if (producto.cantidad > 0) {
+                    total += parseFloat(producto.precio.replace("S/", "")) * producto.cantidad;
+                }
+            });
+
+            const totalElemento = document.getElementById("total");
+            totalElemento.innerText = `S/ ${total.toFixed(2)}`;
+        }
+
+        // Función para manejar el pago
+        function realizarPago() {
+            const productosSeleccionados = JSON.parse(localStorage.getItem("productosSeleccionados")) || [];
+
+            // Verificar si hay productos seleccionados
+            if (productosSeleccionados.length > 0) {
+                const total = parseFloat(document.getElementById("total").innerText.replace("S/", "").trim());
+                const metodoPago = document.getElementById("metodoPago").value;
+
+                localStorage.removeItem("productosSeleccionados");
+                window.location.href =`/Home/Comprobante?metodoPago=${metodoPago}&total=${total}`;
+            } else {
+                alert("No hay productos seleccionados.");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            calcularTotal();
+
+            document.getElementById("realizarPagoBtn").addEventListener("click", realizarPago);
+        });
+
+        document.getElementById("metodoPago").addEventListener("change", function () {
+            var metodoPago = this.value;
+            if (metodoPago === "Tarjeta") {
+                document.getElementById("tarjetaForm").style.display = "block";
+                document.getElementById("mensajeEfectivo").style.display = "none";
+            } else if (metodoPago === "Efectivo") {
+                document.getElementById("tarjetaForm").style.display = "none";
+                document.getElementById("mensajeEfectivo").style.display = "block";
+            } else {
+                document.getElementById("tarjetaForm").style.display = "none";
+                document.getElementById("mensajeEfectivo").style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>

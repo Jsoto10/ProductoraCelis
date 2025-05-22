@@ -1,0 +1,165 @@
+﻿
+.nav {
+    background: linear-gradient(to right, #130ab9,#ff69b4);
+    text-align: center;
+    justify-content: center;
+}
+
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+        nav ul li {
+            flex: 1;
+            margin: 0;
+        }
+
+            nav ul li button {
+                background-color: transparent;
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                cursor: pointer;
+                font-size: 1em;
+                width: 100%;
+            }
+
+.producto {
+    padding: 20px;
+    text-align: center;
+}
+
+.combos {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.combo {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 280px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+}
+
+    .combo img {
+        width: 100px;
+        height: 100px;
+    }
+
+.quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+    .quantity button {
+        width: 30px;
+        height: 30px;
+        font-size: 1.2em;
+        background-color: #ff6600;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .quantity span {
+        margin: 0 10px;
+        font-size: 1.2em;
+    }
+
+
+.combo-reminder {
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+    .combo-reminder button {
+        background: linear-gradient(to right, #ff69b4, #130ab9);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .combo-reminder button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .combo-reminder button:hover {
+            background-color: #45a049;
+        }
+
+
+.but {
+    background-color: #4CAF50; 
+    color: white;
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+    float: right; 
+}
+
+    .but:hover {
+        background-color: #45a049; 
+    }
+
+
+@media (max-width: 768px) {
+    .combo {
+        width: 90%;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+        nav ul li {
+            width: 100%;
+        }
+
+            nav ul li button {
+                padding: 15px;
+                font-size: 1.2em;
+            }
+}
+
+@media (max-width: 480px) {
+    .combo {
+        width: 95%;
+    }
+
+    .quantity button {
+        width: 25px;
+        height: 25px;
+    }
+
+    .quantity span {
+        font-size: 1em;
+    }
+
+    .combo img {
+        width: 80px;
+        height: 80px;
+    }
+}

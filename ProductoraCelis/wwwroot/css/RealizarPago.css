@@ -1,0 +1,97 @@
+﻿/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+/* Total Payment Section */
+#totalPago {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+    #totalPago h2 {
+        font-size: 1.8em;
+    }
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+    input[type="text"], input[type="month"] {
+        max-width: 300px;
+        margin: 10px 0;
+    }
+
+/* Button Styling */
+button {
+    background-color: #007BFF;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+/* Section for Payment Methods */
+#tarjetaForm, #mensajeEfectivo {
+    display: none;
+}
+
+h3 {
+    color: #007BFF;
+    font-size: 1.5em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    button {
+        padding: 10px;
+    }
+
+    input, select {
+        padding: 8px;
+        font-size: 1em;
+    }
+}
